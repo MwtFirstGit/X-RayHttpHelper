@@ -32,6 +32,7 @@
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
@@ -40,34 +41,33 @@
             this.checkEdit2 = new DevExpress.XtraEditors.CheckEdit();
             this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
-            this.checkEdit3 = new DevExpress.XtraEditors.CheckEdit();
-            this.checkEdit4 = new DevExpress.XtraEditors.CheckEdit();
-            this.checkEdit5 = new DevExpress.XtraEditors.CheckEdit();
+            this.textEdit4 = new DevExpress.XtraEditors.TextEdit();
+            this.textEdit3 = new DevExpress.XtraEditors.TextEdit();
             this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.simpleButton4 = new DevExpress.XtraEditors.SimpleButton();
-            this.textEdit3 = new DevExpress.XtraEditors.TextEdit();
-            this.textEdit4 = new DevExpress.XtraEditors.TextEdit();
+            this.checkEdit5 = new DevExpress.XtraEditors.CheckEdit();
+            this.checkEdit4 = new DevExpress.XtraEditors.CheckEdit();
+            this.checkEdit3 = new DevExpress.XtraEditors.CheckEdit();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
-            this.simpleButton5 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton6 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton7 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton6 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton5 = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit3.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit4.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit5.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit4.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit5.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit4.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit3.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
             this.SuspendLayout();
@@ -107,6 +107,14 @@
             this.groupControl1.Size = new System.Drawing.Size(363, 116);
             this.groupControl1.TabIndex = 2;
             this.groupControl1.Text = "请求成功判断方式";
+            // 
+            // textEdit2
+            // 
+            this.textEdit2.Location = new System.Drawing.Point(237, 70);
+            this.textEdit2.MenuManager = this.ribbonControl1;
+            this.textEdit2.Name = "textEdit2";
+            this.textEdit2.Size = new System.Drawing.Size(100, 20);
+            this.textEdit2.TabIndex = 7;
             // 
             // labelControl2
             // 
@@ -161,6 +169,7 @@
             this.checkEdit2.Properties.CheckStyle = DevExpress.XtraEditors.Controls.CheckStyles.Style16;
             this.checkEdit2.Size = new System.Drawing.Size(88, 22);
             this.checkEdit2.TabIndex = 1;
+            this.checkEdit2.CheckedChanged += new System.EventHandler(this.checkEdit2_CheckedChanged);
             // 
             // checkEdit1
             // 
@@ -171,6 +180,7 @@
             this.checkEdit1.Properties.CheckStyle = DevExpress.XtraEditors.Controls.CheckStyles.Style16;
             this.checkEdit1.Size = new System.Drawing.Size(88, 22);
             this.checkEdit1.TabIndex = 0;
+            this.checkEdit1.CheckedChanged += new System.EventHandler(this.checkEdit1_CheckedChanged);
             // 
             // groupControl2
             // 
@@ -189,43 +199,25 @@
             this.groupControl2.TabIndex = 3;
             this.groupControl2.Text = "并发参数配置";
             // 
-            // textEdit2
+            // textEdit4
             // 
-            this.textEdit2.Location = new System.Drawing.Point(237, 70);
-            this.textEdit2.MenuManager = this.ribbonControl1;
-            this.textEdit2.Name = "textEdit2";
-            this.textEdit2.Size = new System.Drawing.Size(100, 20);
-            this.textEdit2.TabIndex = 7;
+            this.textEdit4.EditValue = "5";
+            this.textEdit4.Location = new System.Drawing.Point(117, 100);
+            this.textEdit4.MenuManager = this.ribbonControl1;
+            this.textEdit4.Name = "textEdit4";
+            this.textEdit4.Properties.Mask.EditMask = "[0-9]*";
+            this.textEdit4.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
+            this.textEdit4.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.textEdit4.Size = new System.Drawing.Size(46, 20);
+            this.textEdit4.TabIndex = 12;
             // 
-            // checkEdit3
+            // textEdit3
             // 
-            this.checkEdit3.Location = new System.Drawing.Point(30, 35);
-            this.checkEdit3.MenuManager = this.ribbonControl1;
-            this.checkEdit3.Name = "checkEdit3";
-            this.checkEdit3.Properties.Caption = "开启计时";
-            this.checkEdit3.Properties.CheckStyle = DevExpress.XtraEditors.Controls.CheckStyles.Style16;
-            this.checkEdit3.Size = new System.Drawing.Size(88, 22);
-            this.checkEdit3.TabIndex = 1;
-            // 
-            // checkEdit4
-            // 
-            this.checkEdit4.Location = new System.Drawing.Point(124, 35);
-            this.checkEdit4.MenuManager = this.ribbonControl1;
-            this.checkEdit4.Name = "checkEdit4";
-            this.checkEdit4.Properties.Caption = "使用代理ip";
-            this.checkEdit4.Properties.CheckStyle = DevExpress.XtraEditors.Controls.CheckStyles.Style16;
-            this.checkEdit4.Size = new System.Drawing.Size(88, 22);
-            this.checkEdit4.TabIndex = 2;
-            // 
-            // checkEdit5
-            // 
-            this.checkEdit5.Location = new System.Drawing.Point(237, 35);
-            this.checkEdit5.MenuManager = this.ribbonControl1;
-            this.checkEdit5.Name = "checkEdit5";
-            this.checkEdit5.Properties.Caption = "循环访问";
-            this.checkEdit5.Properties.CheckStyle = DevExpress.XtraEditors.Controls.CheckStyles.Style16;
-            this.checkEdit5.Size = new System.Drawing.Size(88, 22);
-            this.checkEdit5.TabIndex = 3;
+            this.textEdit3.Location = new System.Drawing.Point(117, 72);
+            this.textEdit3.MenuManager = this.ribbonControl1;
+            this.textEdit3.Name = "textEdit3";
+            this.textEdit3.Size = new System.Drawing.Size(220, 20);
+            this.textEdit3.TabIndex = 11;
             // 
             // labelControl3
             // 
@@ -238,7 +230,6 @@
             // simpleButton3
             // 
             this.simpleButton3.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
-            this.simpleButton3.Enabled = false;
             this.simpleButton3.ImageUri.Uri = "Paste;Size16x16;Office2013";
             this.simpleButton3.Location = new System.Drawing.Point(25, 99);
             this.simpleButton3.Name = "simpleButton3";
@@ -256,29 +247,42 @@
             // simpleButton4
             // 
             this.simpleButton4.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
-            this.simpleButton4.Enabled = false;
             this.simpleButton4.ImageUri.Uri = "Paste;Size16x16;GrayScaled";
             this.simpleButton4.Location = new System.Drawing.Point(25, 71);
             this.simpleButton4.Name = "simpleButton4";
             this.simpleButton4.Size = new System.Drawing.Size(31, 23);
             this.simpleButton4.TabIndex = 7;
             // 
-            // textEdit3
+            // checkEdit5
             // 
-            this.textEdit3.Location = new System.Drawing.Point(117, 72);
-            this.textEdit3.MenuManager = this.ribbonControl1;
-            this.textEdit3.Name = "textEdit3";
-            this.textEdit3.Size = new System.Drawing.Size(220, 20);
-            this.textEdit3.TabIndex = 11;
+            this.checkEdit5.Location = new System.Drawing.Point(237, 35);
+            this.checkEdit5.MenuManager = this.ribbonControl1;
+            this.checkEdit5.Name = "checkEdit5";
+            this.checkEdit5.Properties.Caption = "循环访问";
+            this.checkEdit5.Properties.CheckStyle = DevExpress.XtraEditors.Controls.CheckStyles.Style16;
+            this.checkEdit5.Size = new System.Drawing.Size(88, 22);
+            this.checkEdit5.TabIndex = 3;
             // 
-            // textEdit4
+            // checkEdit4
             // 
-            this.textEdit4.EditValue = "5";
-            this.textEdit4.Location = new System.Drawing.Point(117, 100);
-            this.textEdit4.MenuManager = this.ribbonControl1;
-            this.textEdit4.Name = "textEdit4";
-            this.textEdit4.Size = new System.Drawing.Size(46, 20);
-            this.textEdit4.TabIndex = 12;
+            this.checkEdit4.Location = new System.Drawing.Point(124, 35);
+            this.checkEdit4.MenuManager = this.ribbonControl1;
+            this.checkEdit4.Name = "checkEdit4";
+            this.checkEdit4.Properties.Caption = "使用代理ip";
+            this.checkEdit4.Properties.CheckStyle = DevExpress.XtraEditors.Controls.CheckStyles.Style16;
+            this.checkEdit4.Size = new System.Drawing.Size(88, 22);
+            this.checkEdit4.TabIndex = 2;
+            this.checkEdit4.CheckedChanged += new System.EventHandler(this.checkEdit4_CheckedChanged);
+            // 
+            // checkEdit3
+            // 
+            this.checkEdit3.Location = new System.Drawing.Point(25, 35);
+            this.checkEdit3.MenuManager = this.ribbonControl1;
+            this.checkEdit3.Name = "checkEdit3";
+            this.checkEdit3.Properties.Caption = "开启计时";
+            this.checkEdit3.Properties.CheckStyle = DevExpress.XtraEditors.Controls.CheckStyles.Style16;
+            this.checkEdit3.Size = new System.Drawing.Size(88, 22);
+            this.checkEdit3.TabIndex = 1;
             // 
             // groupControl3
             // 
@@ -291,14 +295,15 @@
             this.groupControl3.TabIndex = 5;
             this.groupControl3.Text = "操作";
             // 
-            // simpleButton5
+            // simpleButton7
             // 
-            this.simpleButton5.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
-            this.simpleButton5.Location = new System.Drawing.Point(25, 33);
-            this.simpleButton5.Name = "simpleButton5";
-            this.simpleButton5.Size = new System.Drawing.Size(75, 23);
-            this.simpleButton5.TabIndex = 0;
-            this.simpleButton5.Text = "配置完毕";
+            this.simpleButton7.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.simpleButton7.Location = new System.Drawing.Point(262, 33);
+            this.simpleButton7.Name = "simpleButton7";
+            this.simpleButton7.Size = new System.Drawing.Size(75, 23);
+            this.simpleButton7.TabIndex = 2;
+            this.simpleButton7.Text = "取消";
+            this.simpleButton7.Click += new System.EventHandler(this.simpleButton7_Click);
             // 
             // simpleButton6
             // 
@@ -308,18 +313,21 @@
             this.simpleButton6.Size = new System.Drawing.Size(75, 23);
             this.simpleButton6.TabIndex = 1;
             this.simpleButton6.Text = "重置配置";
+            this.simpleButton6.Click += new System.EventHandler(this.simpleButton6_Click);
             // 
-            // simpleButton7
+            // simpleButton5
             // 
-            this.simpleButton7.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
-            this.simpleButton7.Location = new System.Drawing.Point(262, 33);
-            this.simpleButton7.Name = "simpleButton7";
-            this.simpleButton7.Size = new System.Drawing.Size(75, 23);
-            this.simpleButton7.TabIndex = 2;
-            this.simpleButton7.Text = "取消";
+            this.simpleButton5.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.simpleButton5.Location = new System.Drawing.Point(25, 33);
+            this.simpleButton5.Name = "simpleButton5";
+            this.simpleButton5.Size = new System.Drawing.Size(75, 23);
+            this.simpleButton5.TabIndex = 0;
+            this.simpleButton5.Text = "配置完毕";
+            this.simpleButton5.Click += new System.EventHandler(this.simpleButton5_Click);
             // 
             // Form3
             // 
+            this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(363, 347);
@@ -332,23 +340,25 @@
             this.MaximizeBox = false;
             this.Name = "Form3";
             this.Ribbon = this.ribbonControl1;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "并发请求配置";
+            this.Load += new System.EventHandler(this.Form3_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);
             this.groupControl2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit3.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit4.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit5.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit4.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit5.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit4.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit3.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
             this.ResumeLayout(false);

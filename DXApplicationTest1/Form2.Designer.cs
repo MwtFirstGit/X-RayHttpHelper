@@ -109,11 +109,13 @@
             this.simpleButton3.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.simpleButton3.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
             this.simpleButton3.ImageUri.Uri = "Cancel;GrayScaled";
-            this.simpleButton3.Location = new System.Drawing.Point(191, 172);
+            this.simpleButton3.Location = new System.Drawing.Point(200, 172);
             this.simpleButton3.Name = "simpleButton3";
             this.simpleButton3.Size = new System.Drawing.Size(39, 35);
             this.simpleButton3.TabIndex = 9;
             this.simpleButton3.Text = "确定";
+            this.simpleButton3.Click += new System.EventHandler(this.textEdit1_Click);
+            this.simpleButton3.MouseEnter += new System.EventHandler(this.simpleButton3_MouseEnter);
             // 
             // simpleButton1
             // 
@@ -125,16 +127,19 @@
             this.simpleButton1.Size = new System.Drawing.Size(39, 35);
             this.simpleButton1.TabIndex = 7;
             this.simpleButton1.Text = "确定";
+            this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
+            this.simpleButton1.MouseEnter += new System.EventHandler(this.simpleButton1_MouseEnter);
             // 
             // checkEdit1
             // 
-            this.checkEdit1.Location = new System.Drawing.Point(196, 66);
+            this.checkEdit1.Location = new System.Drawing.Point(211, 65);
             this.checkEdit1.MenuManager = this.ribbonControl1;
             this.checkEdit1.Name = "checkEdit1";
             this.checkEdit1.Properties.Caption = "是否自定义Key";
             this.checkEdit1.Properties.CheckStyle = DevExpress.XtraEditors.Controls.CheckStyles.Style16;
             this.checkEdit1.Size = new System.Drawing.Size(108, 22);
             this.checkEdit1.TabIndex = 6;
+            this.checkEdit1.CheckedChanged += new System.EventHandler(this.checkEdit1_CheckedChanged);
             // 
             // textEdit2
             // 
@@ -146,7 +151,7 @@
             // 
             // labelControl3
             // 
-            this.labelControl3.Location = new System.Drawing.Point(31, 126);
+            this.labelControl3.Location = new System.Drawing.Point(19, 126);
             this.labelControl3.Name = "labelControl3";
             this.labelControl3.Size = new System.Drawing.Size(30, 14);
             this.labelControl3.TabIndex = 4;
@@ -154,7 +159,7 @@
             // 
             // labelControl2
             // 
-            this.labelControl2.Location = new System.Drawing.Point(5, 90);
+            this.labelControl2.Location = new System.Drawing.Point(19, 90);
             this.labelControl2.Name = "labelControl2";
             this.labelControl2.Size = new System.Drawing.Size(56, 14);
             this.labelControl2.TabIndex = 3;
@@ -162,11 +167,12 @@
             // 
             // textEdit1
             // 
-            this.textEdit1.Location = new System.Drawing.Point(86, 123);
+            this.textEdit1.Location = new System.Drawing.Point(55, 123);
             this.textEdit1.MenuManager = this.ribbonControl1;
             this.textEdit1.Name = "textEdit1";
-            this.textEdit1.Size = new System.Drawing.Size(224, 20);
+            this.textEdit1.Size = new System.Drawing.Size(264, 20);
             this.textEdit1.TabIndex = 2;
+            this.textEdit1.Click += new System.EventHandler(this.textEdit1_Click);
             // 
             // comboBoxEdit1
             // 
@@ -180,12 +186,13 @@
             "Host",
             "Http版本",
             "Proxy"});
+            this.comboBoxEdit1.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.comboBoxEdit1.Size = new System.Drawing.Size(100, 20);
             this.comboBoxEdit1.TabIndex = 1;
             // 
             // labelControl1
             // 
-            this.labelControl1.Location = new System.Drawing.Point(17, 55);
+            this.labelControl1.Location = new System.Drawing.Point(19, 52);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(44, 14);
             this.labelControl1.TabIndex = 0;
@@ -206,7 +213,7 @@
             this.MaximizeBox = false;
             this.Name = "Form2";
             this.Ribbon = this.ribbonControl1;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "添加请求头配置";
             this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
