@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "射线模拟提交工具", "射线模拟提交工具.csproj", "{92AFBE70-3114-4E24-91F1-B49C99934665}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92AFBE70-3114-4E24-91F1-B49C99934665}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92AFBE70-3114-4E24-91F1-B49C99934665}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92AFBE70-3114-4E24-91F1-B49C99934665}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92AFBE70-3114-4E24-91F1-B49C99934665}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {421F6C8B-B19A-40C8-B5B6-914C4BD89AE1}
+	EndGlobalSection
+EndGlobal
