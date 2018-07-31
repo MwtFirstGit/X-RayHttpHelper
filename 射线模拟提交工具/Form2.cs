@@ -1,4 +1,5 @@
-﻿using ExtractLib;
+﻿using DevExpress.Utils;
+using ExtractLib;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -168,21 +169,19 @@ namespace 射线模拟提交工具
 
         private void simpleButton1_MouseEnter(object sender, EventArgs e)
         {
-            ToolTip toolTip = new ToolTip();
-            toolTip.InitialDelay = 200;
-            toolTip.ReshowDelay = 300;
-            toolTip.ShowAlways = true;
-            toolTip.IsBalloon = true;
+            ToolTipController toolTip = new ToolTipController();
+            toolTip.InitialDelay = 1000;
+            toolTip.ReshowDelay = 1000;
+            toolTip.ShowShadow = true;
             toolTip.SetToolTip(simpleButton1, "确认添加");
         }
 
         private void simpleButton3_MouseEnter(object sender, EventArgs e)
         {
-            ToolTip toolTip = new ToolTip();
-            toolTip.InitialDelay = 200;
-            toolTip.ReshowDelay = 300;
-            toolTip.ShowAlways = true;
-            toolTip.IsBalloon = true;
+            ToolTipController toolTip = new ToolTipController();
+            toolTip.InitialDelay = 1000;
+            toolTip.ReshowDelay = 1000;
+            toolTip.ShowShadow = true;
             toolTip.SetToolTip(simpleButton3, "取消添加");
         }
     }

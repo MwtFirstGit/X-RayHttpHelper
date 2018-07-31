@@ -104,6 +104,9 @@
     <Reference Include="ExtractLib">
       <HintPath>..\..\..\Git_Res3\参数化Http请求\bin\Debug\ExtractLib.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>E:\0704fork版\DLL\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="HttpToolsLib">
       <HintPath>..\..\..\Git_Res3\参数化Http请求\bin\Debug\HttpToolsLib.dll</HintPath>
     </Reference>

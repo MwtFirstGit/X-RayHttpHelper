@@ -1,4 +1,5 @@
-﻿using DevExpress.XtraEditors;
+﻿using DevExpress.Utils;
+using DevExpress.XtraEditors;
 using DevExpress.XtraRichEdit;
 using ExtractLib;
 using HttpToolsLib;
@@ -15,6 +16,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace 射线模拟提交工具
@@ -40,7 +42,7 @@ namespace 射线模拟提交工具
         }
         
         /// <summary>
-        /// 请求按钮123
+        /// 请求按钮
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -108,7 +110,15 @@ namespace 射线模拟提交工具
                 control.ReadOnly = true;
                 control.ActiveViewType = RichEditViewType.Simple;
                 xtraTabPage3.Controls.Add(control);
-                ConfigFinishFunc();
+                Task.Run(() => 
+                {
+                    ConfigFinishFunc();
+                });
+                //Thread thread = new Thread(new ThreadStart());
+                //thread.Start();
+                //Task.Run(() => 
+                //{
+                //});
             }
             tabPane1.SelectedPage = tabNavigationPage2;
         }
@@ -199,16 +209,6 @@ namespace 射线模拟提交工具
         {
             GC.Collect();
             UpRichTextBox uptxt = new UpRichTextBox(UpRichTxt);
-
-            #region 请求前检查
-            if (String.IsNullOrEmpty(info.RequestUrl))
-            {
-                Form4 form4 = new Form4("错误，请求地址不合法");
-                form4.Text = "错误";
-                form4.ShowDialog();
-                return;
-            }
-            #endregion
 
             #region 配置请求头
             HttpInfo info_goto = CreateHttp();
@@ -348,7 +348,6 @@ namespace 射线模拟提交工具
             }
             #endregion
 
-
         }
         /// <summary>
         /// 展示数据
@@ -359,7 +358,8 @@ namespace 射线模拟提交工具
             if (txt != null)
             {
                 control.Text = control.Text + txt.ToString();
-                control.ScrollToCaret();
+                //control.Document.CaretPosition = control.Document.CreatePosition(control.Text.Length);
+                //control.ScrollToCaret();
                 //box1.Focus();
             }
         }
@@ -534,6 +534,10 @@ namespace 射线模拟提交工具
         /// <param name="e"></param>
         private void simpleButton2_Click(object sender, EventArgs e)
         {
+            if (String.IsNullOrEmpty(listViewNF1.SelectedItems[0].SubItems[1].Text))
+            {
+                return;
+            }
             String key = listViewNF1.SelectedItems[0].SubItems[1].Text;
             String values = string.Empty;
             if (HeadDic.TryRemove(key,out values))
@@ -569,11 +573,10 @@ namespace 射线模拟提交工具
         /// <param name="e"></param>
         private void simpleButton1_MouseEnter(object sender, EventArgs e)
         {
-            ToolTip toolTip = new ToolTip();
-            toolTip.InitialDelay = 200;
-            toolTip.ReshowDelay = 300;
-            toolTip.ShowAlways = true;
-            toolTip.IsBalloon = true;
+            ToolTipController toolTip = new ToolTipController();
+            toolTip.InitialDelay = 1000;
+            toolTip.ReshowDelay = 1000;
+            toolTip.ShowShadow = true;
             toolTip.SetToolTip(simpleButton1, "添加请求头");
         }
         /// <summary>
@@ -583,11 +586,10 @@ namespace 射线模拟提交工具
         /// <param name="e"></param>
         private void simpleButton2_MouseEnter(object sender, EventArgs e)
         {
-            ToolTip toolTip = new ToolTip();
-            toolTip.InitialDelay = 200;
-            toolTip.ReshowDelay = 300;
-            toolTip.ShowAlways = true;
-            toolTip.IsBalloon = true;
+            ToolTipController toolTip = new ToolTipController();
+            toolTip.InitialDelay = 1000;
+            toolTip.ReshowDelay = 1000;
+            toolTip.ShowShadow = true;
             toolTip.SetToolTip(simpleButton2, "删除选中请求头");
         }
         /// <summary>
@@ -596,12 +598,11 @@ namespace 射线模拟提交工具
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void simpleButton3_MouseEnter(object sender, EventArgs e)
-        {
-            ToolTip toolTip = new ToolTip();
-            toolTip.InitialDelay = 200;
-            toolTip.ReshowDelay = 300;
-            toolTip.ShowAlways = true;
-            toolTip.IsBalloon = true;
+        { 
+            ToolTipController toolTip = new ToolTipController();
+            toolTip.InitialDelay = 1000;
+            toolTip.ReshowDelay = 1000;
+            toolTip.ShowShadow = true;
             toolTip.SetToolTip(simpleButton3, "清空请求头");
         }
         #endregion
@@ -669,6 +670,7 @@ namespace 射线模拟提交工具
                 form4.ShowDialog();
             }
             barStaticItem1.Caption = "下载图片:" + Path.GetFileName(textEdit1.Text) + "完毕";
+            tabPane1.SelectedPage = tabNavigationPage2;
         }
         /// <summary>
         /// 下载文件按钮
@@ -707,8 +709,20 @@ namespace 射线模拟提交工具
             SaveFileDialog sf = new SaveFileDialog();
             var arr = textEdit1.Text.Split('/');
             String filename = arr[arr.Length - 1];
-            String type = filename.Split('.')[1];
-            String name = filename.Split('.')[0];
+            String type = "*";
+            String name = filename;
+            if (filename.Contains("."))
+            {
+                type = filename.Split('.')[1];
+                name = filename.Split('.')[0];
+            }
+            else
+            {
+                Form4 form4 = new Form4("");
+                form4.Text = "自定义文件后缀";
+                form4.ShowDialog();
+                type = form4.filter;
+            }
             String filter = String.Format("{0}(*.{0})|*.{0}|所有文件(*.*)|*.*", type, type, type);
             sf.Filter = filter;//可以保存的格式
             sf.FileName = arr[arr.Length - 1];

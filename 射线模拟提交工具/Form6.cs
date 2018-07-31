@@ -40,6 +40,14 @@ namespace 射线模拟提交工具
                 textEdit1.Visible = false;
                 labelControl2.Text = "可选择文件名";
             }
+            if(this.Text == "自定义文件后缀")
+            {
+                labelControl2.Visible = false;
+                comboBoxEdit1.Visible = false;
+                simpleButton2.Visible = false;
+                simpleButton1.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.BottomCenter;
+                labelControl1.Text = "下载文件后缀";
+            }
         }
 
         private void simpleButton1_Click(object sender, EventArgs e)

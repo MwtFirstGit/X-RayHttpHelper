@@ -14,20 +14,41 @@ namespace 射线模拟提交工具
     public partial class Form4 : DevExpress.XtraBars.Ribbon.RibbonForm
     {
         String str = String.Empty;
+        public string filter = string.Empty;
         public Form4(String labeltext)
         {
             this.str = labeltext;
+            this.ControlBox = false;
             InitializeComponent();
         }
 
         private void simpleButton1_Click(object sender, EventArgs e)
         {
             str = null;
+            if (textEdit1.Visible)
+            {
+                if (!String.IsNullOrEmpty(textEdit1.Text))
+                {
+                    filter = textEdit1.Text;
+                }
+                else
+                {
+                    this.Text = "错误";
+                    this.str = "错误：请输入要保存的文件后缀名";
+                    this.ShowDialog();
+                }
+            }
             this.Close();
         }
 
         private void Form4_Load(object sender, EventArgs e)
         {
+            if(this.Text == "自定义文件后缀")
+            {
+                labelControl2.Visible = true;
+                labelControl1.Visible = false;
+                textEdit1.Visible = true;
+            }
             if(!String.IsNullOrEmpty(str))
             {
                 labelControl1.Text = str;
