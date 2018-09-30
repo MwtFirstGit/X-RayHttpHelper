@@ -114,7 +114,7 @@
             this.simpleButton3.Size = new System.Drawing.Size(39, 35);
             this.simpleButton3.TabIndex = 9;
             this.simpleButton3.Text = "确定";
-            this.simpleButton3.Click += new System.EventHandler(this.textEdit1_Click);
+            this.simpleButton3.Click += new System.EventHandler(this.simpleButton3_Click);
             this.simpleButton3.MouseEnter += new System.EventHandler(this.simpleButton3_MouseEnter);
             // 
             // simpleButton1
@@ -176,13 +176,14 @@
             // 
             // comboBoxEdit1
             // 
-            this.comboBoxEdit1.EditValue = "Host";
+            this.comboBoxEdit1.EditValue = "X-FOR-WITH";
             this.comboBoxEdit1.Location = new System.Drawing.Point(86, 49);
             this.comboBoxEdit1.MenuManager = this.ribbonControl1;
             this.comboBoxEdit1.Name = "comboBoxEdit1";
             this.comboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.comboBoxEdit1.Properties.Items.AddRange(new object[] {
+            "X-FOR-WITH",
             "Host",
             "Http版本",
             "Proxy"});

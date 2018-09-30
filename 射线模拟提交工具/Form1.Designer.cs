@@ -47,7 +47,6 @@
             this.barButtonItem12 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem14 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem16 = new DevExpress.XtraBars.BarButtonItem();
-            this.barEditItem25 = new DevExpress.XtraBars.BarEditItem();
             this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
@@ -56,6 +55,8 @@
             this.barButtonItem5 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem6 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem7 = new DevExpress.XtraBars.BarButtonItem();
+            this.barCheckItem1 = new DevExpress.XtraBars.BarCheckItem();
+            this.barButtonItem8 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -99,6 +100,7 @@
             this.tabNavigationPage2 = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             this.xtraTabControl2 = new DevExpress.XtraTab.XtraTabControl();
             this.xtraTabPage3 = new DevExpress.XtraTab.XtraTabPage();
+            this.xtraTabPage4 = new DevExpress.XtraTab.XtraTabPage();
             this.tabNavigationPage3 = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
@@ -279,13 +281,7 @@
             // 
             // repositoryItemCheckEdit17
             // 
-            this.repositoryItemCheckEdit17.AutoHeight = false;
-            this.repositoryItemCheckEdit17.Caption = "开启并发";
-            this.repositoryItemCheckEdit17.CheckStyle = DevExpress.XtraEditors.Controls.CheckStyles.Style16;
-            this.repositoryItemCheckEdit17.GlyphAlignment = DevExpress.Utils.HorzAlignment.Near;
             this.repositoryItemCheckEdit17.Name = "repositoryItemCheckEdit17";
-            this.repositoryItemCheckEdit17.NullStyle = DevExpress.XtraEditors.Controls.StyleIndeterminate.Unchecked;
-            this.repositoryItemCheckEdit17.CheckedChanged += new System.EventHandler(this.repositoryItemCheckEdit17_CheckedChanged);
             // 
             // ribbonControl1
             // 
@@ -295,7 +291,6 @@
             this.barButtonItem12,
             this.barButtonItem14,
             this.barButtonItem16,
-            this.barEditItem25,
             this.barButtonItem2,
             this.barButtonItem1,
             this.barButtonItem3,
@@ -303,20 +298,24 @@
             this.barStaticItem1,
             this.barButtonItem5,
             this.barButtonItem6,
-            this.barButtonItem7});
+            this.barButtonItem7,
+            this.barCheckItem1,
+            this.barButtonItem8});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 367;
+            this.ribbonControl1.MaxItemId = 369;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage2});
             this.ribbonControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemTextEdit2});
             this.ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.MacOffice;
+            this.ribbonControl1.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbonControl1.ShowToolbarCustomizeItem = false;
             this.ribbonControl1.Size = new System.Drawing.Size(916, 133);
             this.ribbonControl1.StatusBar = this.ribbonStatusBar1;
             this.ribbonControl1.Toolbar.ShowCustomizeItem = false;
             this.ribbonControl1.ToolbarLocation = DevExpress.XtraBars.Ribbon.RibbonQuickAccessToolbarLocation.Above;
+            this.ribbonControl1.Click += new System.EventHandler(this.ribbonControl1_Click);
             // 
             // barButtonItem12
             // 
@@ -347,14 +346,6 @@
             this.barButtonItem16.Name = "barButtonItem16";
             this.barButtonItem16.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.barButtonItem16.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem16_ItemClick);
-            // 
-            // barEditItem25
-            // 
-            this.barEditItem25.Edit = this.repositoryItemCheckEdit17;
-            this.barEditItem25.EditWidth = 75;
-            this.barEditItem25.Id = 57;
-            this.barEditItem25.Name = "barEditItem25";
-            this.barEditItem25.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText;
             // 
             // barButtonItem2
             // 
@@ -434,6 +425,24 @@
             this.barButtonItem7.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.barButtonItem7.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem7_ItemClick);
             // 
+            // barCheckItem1
+            // 
+            this.barCheckItem1.Caption = "开启并发";
+            this.barCheckItem1.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
+            this.barCheckItem1.Id = 367;
+            this.barCheckItem1.Name = "barCheckItem1";
+            this.barCheckItem1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barCheckItem1.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.barCheckItem1_CheckedChanged);
+            // 
+            // barButtonItem8
+            // 
+            this.barButtonItem8.Caption = "编码转换";
+            this.barButtonItem8.Id = 368;
+            this.barButtonItem8.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem8.ImageOptions.Image")));
+            this.barButtonItem8.Name = "barButtonItem8";
+            this.barButtonItem8.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonItem8.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem8_ItemClick);
+            // 
             // ribbonPage2
             // 
             this.ribbonPage2.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -451,7 +460,7 @@
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem1);
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem3);
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem16);
-            this.ribbonPageGroup2.ItemLinks.Add(this.barEditItem25);
+            this.ribbonPageGroup2.ItemLinks.Add(this.barCheckItem1);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             this.ribbonPageGroup2.Text = "请求操作";
             // 
@@ -459,8 +468,9 @@
             // 
             this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem6);
             this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem7);
+            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItem8);
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
-            this.ribbonPageGroup1.Text = "结果匹配操作";
+            this.ribbonPageGroup1.Text = "结果操作";
             // 
             // repositoryItemTextEdit2
             // 
@@ -852,21 +862,27 @@
             // 
             // xtraTabControl2
             // 
-            this.xtraTabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.xtraTabControl2.Location = new System.Drawing.Point(0, 0);
             this.xtraTabControl2.Name = "xtraTabControl2";
             this.xtraTabControl2.SelectedTabPage = this.xtraTabPage3;
-            this.xtraTabControl2.ShowTabHeader = DevExpress.Utils.DefaultBoolean.False;
-            this.xtraTabControl2.Size = new System.Drawing.Size(898, 445);
+            this.xtraTabControl2.ShowTabHeader = DevExpress.Utils.DefaultBoolean.True;
+            this.xtraTabControl2.Size = new System.Drawing.Size(898, 425);
             this.xtraTabControl2.TabIndex = 0;
             this.xtraTabControl2.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
-            this.xtraTabPage3});
+            this.xtraTabPage3,
+            this.xtraTabPage4});
             // 
             // xtraTabPage3
             // 
             this.xtraTabPage3.Name = "xtraTabPage3";
-            this.xtraTabPage3.Size = new System.Drawing.Size(892, 439);
-            this.xtraTabPage3.Text = "xtraTabPage3";
+            this.xtraTabPage3.Size = new System.Drawing.Size(892, 396);
+            this.xtraTabPage3.Text = "请求结果";
+            // 
+            // xtraTabPage4
+            // 
+            this.xtraTabPage4.Name = "xtraTabPage4";
+            this.xtraTabPage4.Size = new System.Drawing.Size(892, 396);
+            this.xtraTabPage4.Text = "编码转换结果";
             // 
             // tabNavigationPage3
             // 
@@ -877,12 +893,11 @@
             // 
             // xtraTabControl1
             // 
-            this.xtraTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.xtraTabControl1.Location = new System.Drawing.Point(0, 0);
             this.xtraTabControl1.Name = "xtraTabControl1";
             this.xtraTabControl1.SelectedTabPage = this.xtraTabPage1;
             this.xtraTabControl1.ShowTabHeader = DevExpress.Utils.DefaultBoolean.True;
-            this.xtraTabControl1.Size = new System.Drawing.Size(898, 445);
+            this.xtraTabControl1.Size = new System.Drawing.Size(898, 424);
             this.xtraTabControl1.TabIndex = 0;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage1,
@@ -891,13 +906,13 @@
             // xtraTabPage1
             // 
             this.xtraTabPage1.Name = "xtraTabPage1";
-            this.xtraTabPage1.Size = new System.Drawing.Size(892, 416);
+            this.xtraTabPage1.Size = new System.Drawing.Size(892, 395);
             this.xtraTabPage1.Text = "浏览器显示";
             // 
             // xtraTabPage2
             // 
             this.xtraTabPage2.Name = "xtraTabPage2";
-            this.xtraTabPage2.Size = new System.Drawing.Size(892, 416);
+            this.xtraTabPage2.Size = new System.Drawing.Size(892, 395);
             this.xtraTabPage2.Text = "执行JS后源代码";
             // 
             // tabNavigationPage4
@@ -1247,7 +1262,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.TextEdit textEdit1;
         private DevExpress.XtraEditors.LabelControl labelControl1;
-        private DevExpress.XtraBars.BarEditItem barEditItem25;
         private DevExpress.XtraEditors.CheckEdit checkEdit7;
         private DevExpress.XtraEditors.CheckEdit checkEdit5;
         private DevExpress.XtraEditors.CheckEdit checkEdit4;
@@ -1326,6 +1340,9 @@
         private DevExpress.XtraEditors.CheckEdit checkEdit11;
         private DevExpress.XtraTab.XtraTabControl xtraTabControl2;
         private DevExpress.XtraTab.XtraTabPage xtraTabPage3;
+        private DevExpress.XtraBars.BarCheckItem barCheckItem1;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem8;
+        private DevExpress.XtraTab.XtraTabPage xtraTabPage4;
     }
 }
 

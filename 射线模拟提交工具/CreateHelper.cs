@@ -18,4 +18,11 @@ namespace 射线模拟提交工具
         public string ProxyAPI { get; internal set; }
         public bool LoopGet { get; internal set; }
     }
+
+    public class UpdateInfo
+    {
+        public string name { get; set; }
+        public string hash { get; set; }
+        public string url { get; set; }
+    }
 }

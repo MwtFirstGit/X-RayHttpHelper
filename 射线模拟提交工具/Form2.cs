@@ -36,16 +36,39 @@ namespace 射线模拟提交工具
                 switch (comboBoxEdit1.SelectedIndex)
                 {
                     case 0:
-                        key = "Host";
+                        key ="X-FOR-WITH";
                         break;
                     case 1:
-                        key = "ProtocolVersion";
+                        key = "Host";
                         break;
                     case 2:
+                        key = "ProtocolVersion";
+                        break;
+                    case 3:
                         key = "proxy";
                         break;
                 }
                 if(comboBoxEdit1.SelectedIndex == 0)
+                {
+                    if(String.IsNullOrEmpty(textEdit1.Text))
+                    {
+                        Form4 form4 = new Form4("警告：请填写X-FOR-WITH的Value值");
+                        form4.Text = "警告";
+                        form4.ShowDialog();
+                        return;
+                    }
+                    if (Form1.HeadDic.TryAdd(key, textEdit1.Text))
+                    {
+
+                    }
+                    else
+                    {
+                        Form4 form4 = new Form4("错误：Key已存在");
+                        form4.Text = "错误";
+                        form4.ShowDialog();
+                    }
+                }
+                if(comboBoxEdit1.SelectedIndex == 1)
                 {
                     if (String.IsNullOrEmpty(textEdit1.Text))
                     {
@@ -65,7 +88,7 @@ namespace 射线模拟提交工具
                         form4.ShowDialog();
                     }
                 }
-                if(comboBoxEdit1.SelectedIndex == 1)
+                if(comboBoxEdit1.SelectedIndex == 2)
                 {
                     if(textEdit1.Text == "1.1")
                     {
@@ -94,7 +117,7 @@ namespace 射线模拟提交工具
                         }
                     }
                 }
-                if(comboBoxEdit1.SelectedIndex == 2)
+                if(comboBoxEdit1.SelectedIndex == 3)
                 {
                     string str = RegexMethod.GetSingleResult("[0-9]+?.[0-9]+?.[0-9]+?.[0-9]+?:[0-9]+", textEdit1.Text);
                     if (String.IsNullOrEmpty(textEdit1.Text)||String.IsNullOrEmpty(str))
@@ -155,12 +178,12 @@ namespace 射线模拟提交工具
 
         private void textEdit1_Click(object sender, EventArgs e)
         {
-            if(comboBoxEdit1.SelectedIndex == 1)
+            if(comboBoxEdit1.SelectedIndex == 2)
             {
                 this.textEdit1.Text = "1.0|1.1(选填,默认为1.0)";
                 this.textEdit1.SelectAll();
             }
-            if(comboBoxEdit1.SelectedIndex == 2)
+            if(comboBoxEdit1.SelectedIndex == 3)
             {
                 this.textEdit1.Text = "IP地址:端口号|代理IP用户名|代理IP密码(用户名和密码选填)";
                 this.textEdit1.SelectAll();

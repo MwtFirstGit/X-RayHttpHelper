@@ -32,6 +32,7 @@ namespace 射线模拟提交工具
             }
             if(this.Text == "保存配置")
             {
+                textEdit1.Text = 
                 labelControl2.Text = "可覆盖文件名";
             }
             if(this.Text == "读取配置")

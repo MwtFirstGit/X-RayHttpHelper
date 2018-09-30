@@ -3,6 +3,8 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraRichEdit;
 using ExtractLib;
 using HttpToolsLib;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PControlsLib;
 using System;
 using System.Collections.Concurrent;
@@ -32,6 +34,7 @@ namespace 射线模拟提交工具
         public static CreateHelper createHelper;
         private bool thread_flag = false;
         RichEditControl control = new RichEditControl();
+        RichTextBox box1 = new RichTextBox();
         delegate void UpRichTextBox(object txt);
         String path = "配置文件";
 
@@ -105,20 +108,23 @@ namespace 射线模拟提交工具
             }
             else
             {
+                barButtonItem1.Enabled = false;
+                barButtonItem2.Enabled = false;
+                barButtonItem12.Enabled = false;
+                barButtonItem14.Enabled = false;
+                barButtonItem4.Enabled = false;
+                barButtonItem3.Enabled = false;
+                //box1 = new RichTextBox();
+                //box1.Dock = DockStyle.Fill;
+                //box1.SelectionStart = box1.Text.Length;
+                //box1.SelectionLength = 0;
+                //xtraTabPage3.Controls.Add(box1);
                 control = new RichEditControl();
                 control.Dock = DockStyle.Fill;
                 control.ReadOnly = true;
                 control.ActiveViewType = RichEditViewType.Simple;
                 xtraTabPage3.Controls.Add(control);
-                Task.Run(() => 
-                {
-                    ConfigFinishFunc();
-                });
-                //Thread thread = new Thread(new ThreadStart());
-                //thread.Start();
-                //Task.Run(() => 
-                //{
-                //});
+                ConfigFinishFunc();
             }
             tabPane1.SelectedPage = tabNavigationPage2;
         }
@@ -128,6 +134,7 @@ namespace 射线模拟提交工具
             String RegStr = String.Empty;
             String proxyapi_url = String.Empty;
             String XpathStr = String.Empty;
+            bool taskflag = false;
             int ThreadNum = 0;
             if (createHelper.Check)
             {
@@ -159,55 +166,97 @@ namespace 射线模拟提交工具
             }
             loopget = createHelper.LoopGet;
             ThreadNum = createHelper.ThreadNum;
-            Thread[] thread = new Thread[ThreadNum];
-            for (int i = 0; i < ThreadNum; i++)
+            if (loopget)
             {
-                thread[i] = new Thread(new ThreadStart(delegate {
-                    string nowip = string.Empty;
-                    if (!String.IsNullOrEmpty(proxyapi_url))
+                ThreadNum = 1;
+            }
+            Task.Run(() => 
+            {
+                Task[] task = new Task[ThreadNum];
+                for (int i = 0; i < ThreadNum; i++)
+                {
+                    task[i] = Task.Run(() =>
                     {
-                        while (String.IsNullOrEmpty(nowip))
+                        string nowip = string.Empty;
+                        if (!String.IsNullOrEmpty(proxyapi_url))
                         {
-                            if (ipstack.Count > 0)
+                            while (String.IsNullOrEmpty(nowip))
                             {
-                                string ip = string.Empty;
-                                if (ipstack.TryPop(out ip))
+                                if (ipstack.Count > 0)
                                 {
-                                    nowip = ip;
+                                    string ip = string.Empty;
+                                    if (ipstack.TryPop(out ip))
+                                    {
+                                        nowip = ip;
+                                    }
                                 }
+                                Thread.Sleep(1);
                             }
+                        }
+                        RunFunc(XpathStr, RegStr, proxyapi_url, createHelper.TimerEnable, nowip);
+                        while (loopget)
+                        {
+                            RunFunc(XpathStr, RegStr, proxyapi_url, createHelper.TimerEnable, nowip);
                             Thread.Sleep(1);
                         }
-                    }
-                    RunFunc(XpathStr, RegStr, proxyapi_url, createHelper.TimerEnable, nowip);
-                    while (loopget)
-                    {
-                        RunFunc(XpathStr, RegStr, proxyapi_url, createHelper.TimerEnable, nowip);
-                        Thread.Sleep(1);
-                    }
-                }));
-                thread[i].IsBackground = true;
-                thread[i].Start();
-            }
-            //for(int i = 0; i < ThreadNum; i++)
+                    });
+                }
+                Task.WaitAll(task);
+                taskflag = true;
+            });
+
+            //Thread[] thread = new Thread[ThreadNum];
+            //for (int i = 0; i < ThreadNum; i++)
             //{
-            //    thread[i].Join();
+            //    thread[i] = new Thread(new ThreadStart(delegate {
+            //        string nowip = string.Empty;
+            //        if (!String.IsNullOrEmpty(proxyapi_url))
+            //        {
+            //            while (String.IsNullOrEmpty(nowip))
+            //            {
+            //                if (ipstack.Count > 0)
+            //                {
+            //                    string ip = string.Empty;
+            //                    if (ipstack.TryPop(out ip))
+            //                    {
+            //                        nowip = ip;
+            //                    }
+            //                }
+            //                Thread.Sleep(1);
+            //            }
+            //        }
+            //        RunFunc(XpathStr, RegStr, proxyapi_url, createHelper.TimerEnable, nowip);
+            //        while (loopget)
+            //        {
+            //            RunFunc(XpathStr, RegStr, proxyapi_url, createHelper.TimerEnable, nowip);
+            //            Thread.Sleep(1);
+            //        }
+            //    }));
+            //    thread[i].IsBackground = true;
+            //    thread[i].Start();
             //}
-            if (!loopget)
+            Task.Run(() =>
             {
-                barButtonItem1.Enabled = true;
-                barButtonItem2.Enabled = true;
-                barButtonItem12.Enabled = true;
-                barButtonItem14.Enabled = true;
-                barButtonItem4.Enabled = true;
-                barButtonItem3.Enabled = true;
-                barButtonItem16.Enabled = true;
-            }
+                while (true)
+                {
+                    if (taskflag)
+                    {
+                        barButtonItem1.Enabled = true;
+                        barButtonItem2.Enabled = true;
+                        barButtonItem12.Enabled = true;
+                        barButtonItem14.Enabled = true;
+                        barButtonItem4.Enabled = true;
+                        barButtonItem3.Enabled = true;
+                        break;
+                    }
+                }
+            });
+            
         }
 
         private void RunFunc(string xpathstr, string regstr, string proxyapi_url, bool timeflag, string ip)
         {
-            GC.Collect();
+            //GC.Collect();
             UpRichTextBox uptxt = new UpRichTextBox(UpRichTxt);
 
             #region 配置请求头
@@ -357,10 +406,11 @@ namespace 射线模拟提交工具
         {
             if (txt != null)
             {
+                //box1.AppendText(txt.ToString());
+                //box1.ScrollToCaret();
                 control.Text = control.Text + txt.ToString();
-                //control.Document.CaretPosition = control.Document.CreatePosition(control.Text.Length);
-                //control.ScrollToCaret();
-                //box1.Focus();
+                control.Document.CaretPosition = control.Document.CreatePosition(control.Text.Length);
+                control.ScrollToCaret();
             }
         }
 
@@ -378,6 +428,38 @@ namespace 射线模拟提交工具
             iplist = RegexMethod.GetMutResult("[0-9]+?.[0-9]+?.[0-9]+?.[0-9]+?:[0-9]+", Html);
             return iplist;
         }
+        /// <summary>
+        /// 开启或关闭并发请求
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void barCheckItem1_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (barCheckItem1.Checked)
+            {
+                barStaticItem1.Caption = "当前状态：开启并发请求且配置并发请求参数";
+                Form3 form3 = new Form3();
+                form3.ShowDialog();
+                if (form3.DialogResult == DialogResult.OK)
+                {
+                    thread_flag = true;
+                    createHelper = form3.createHelper;
+                    barStaticItem1.Caption = "当前状态：并发请求配置完毕";
+
+                }
+                if (form3.DialogResult == DialogResult.Cancel)
+                {
+                    thread_flag = false;
+                    barStaticItem1.Caption = "当前状态：取消并发请求配置";
+                    barCheckItem1.Checked = false;
+                }
+            }
+            else
+            {
+                barStaticItem1.Caption = "当前状态：关闭并发请求";
+                thread_flag = false;
+            }
+        }
         #endregion
 
         /// <summary>
@@ -391,7 +473,13 @@ namespace 射线模拟提交工具
             info = new HttpInfo(textEdit1.Text);
             if (!String.IsNullOrEmpty(richEditControl1.Text))
             {
-                info.PostData = richEditControl1.Text;
+                var list = RegexMethod.GetMutResult("[\u4e00-\u9fa5]+?", richEditControl1.Text);
+                String newpostdata = richEditControl1.Text;
+                for (int i = 0; i < list.Count; i++)
+                {
+                    newpostdata = newpostdata.Replace(list[i], HttpMethod.URLEncode(list[i]));
+                }
+                info.PostData = newpostdata;
             }
             info.UseSystemProxy = checkEdit7.Checked;
             //info.Host = textBox17.Text;
@@ -464,38 +552,6 @@ namespace 射线模拟提交工具
             return info;
 
         }
-        /// <summary>
-        /// 开启或关闭并发请求
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void repositoryItemCheckEdit17_CheckedChanged(object sender, EventArgs e)
-        {
-            if (barEditItem25.EditValue.Equals(true))
-            {
-                barStaticItem1.Caption = "当前状态：开启并发请求且配置并发请求参数";
-                Form3 form3 = new Form3();
-                form3.ShowDialog();
-                if(form3.DialogResult == DialogResult.OK)
-                {
-                    thread_flag = true;
-                    createHelper = form3.createHelper;
-                    barStaticItem1.Caption = "当前状态：并发请求配置完毕";
-
-                }
-                if(form3.DialogResult == DialogResult.Cancel)
-                {
-                    thread_flag = false;
-                    barStaticItem1.Caption = "当前状态：取消并发请求配置";
-                    //将状态改为关闭
-                }
-            }
-            else
-            {
-                barStaticItem1.Caption = "当前状态：关闭并发请求";
-                thread_flag = false;
-            }
-        }
 
         #region 自定义请求头相关
         /// <summary>
@@ -534,19 +590,26 @@ namespace 射线模拟提交工具
         /// <param name="e"></param>
         private void simpleButton2_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(listViewNF1.SelectedItems[0].SubItems[1].Text))
+            try
             {
-                return;
+                if (String.IsNullOrEmpty(listViewNF1.SelectedItems[0].SubItems[1].Text))
+                {
+                    return;
+                }
+                String key = listViewNF1.SelectedItems[0].SubItems[1].Text;
+                String values = string.Empty;
+                if (HeadDic.TryRemove(key, out values))
+                {
+                    listViewNF1.Items[listViewNF1.SelectedItems[0].Index].Remove();
+                    AddItem(HeadDic);
+                    //listViewNF1.Items.RemoveAt(listViewNF1.SelectedItems[0].Index);
+                }
+                barStaticItem1.Caption = "当前状态：删除自定义请求头" + key;
             }
-            String key = listViewNF1.SelectedItems[0].SubItems[1].Text;
-            String values = string.Empty;
-            if (HeadDic.TryRemove(key,out values))
+            catch
             {
-                listViewNF1.Items[listViewNF1.SelectedItems[0].Index].Remove();
-                AddItem(HeadDic);
-                //listViewNF1.Items.RemoveAt(listViewNF1.SelectedItems[0].Index);
+                barStaticItem1.Caption = "当前状态：未选择自定义请求头";
             }
-            barStaticItem1.Caption = "当前状态：删除自定义请求头" + key;
         }
         /// <summary>
         /// 清空请求头按钮
@@ -555,19 +618,26 @@ namespace 射线模拟提交工具
         /// <param name="e"></param>
         private void simpleButton3_Click(object sender, EventArgs e)
         {
-            HeadDic = new ConcurrentDictionary<string, string>();
-            Application.DoEvents();
-            listViewNF1.BeginUpdate();
-            while (listViewNF1.Items.Count > 0)
+            try
             {
-                listViewNF1.Items.RemoveAt(listViewNF1.Items.Count - 1);
+                HeadDic = new ConcurrentDictionary<string, string>();
+                Application.DoEvents();
+                listViewNF1.BeginUpdate();
+                while (listViewNF1.Items.Count > 0)
+                {
+                    listViewNF1.Items.RemoveAt(listViewNF1.Items.Count - 1);
+                }
+                listViewNF1.EndUpdate();
+                Application.DoEvents();
+                barStaticItem1.Caption = "当前状态：清空自定义请求头";
             }
-            listViewNF1.EndUpdate();
-            Application.DoEvents();
-            barStaticItem1.Caption = "当前状态：清空自定义请求头";
+            catch
+            {
+                barStaticItem1.Caption = "当前状态：未添加自定义请求头";
+            }
         }
         /// <summary>
-        /// 显示添加请求头按钮含义
+        /// 显示添加请求头按钮说明
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -580,7 +650,7 @@ namespace 射线模拟提交工具
             toolTip.SetToolTip(simpleButton1, "添加请求头");
         }
         /// <summary>
-        /// 显示删除选中请求头按钮含义
+        /// 显示删除选中请求头按钮说明
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -593,7 +663,7 @@ namespace 射线模拟提交工具
             toolTip.SetToolTip(simpleButton2, "删除选中请求头");
         }
         /// <summary>
-        /// 显示清空请求头按钮含义
+        /// 显示清空请求头按钮说明
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -663,7 +733,7 @@ namespace 射线模拟提交工具
                 pictureEdit.Image = img;
                 xtraTabPage3.Controls.Add(pictureEdit);
             }
-            catch (Exception ex)
+            catch
             {
                 Form4 form4 = new Form4("程序错误：请联系程序员！");
                 form4.Text = "错误";
@@ -872,6 +942,7 @@ namespace 射线模拟提交工具
                     richEditControl6.Text = "未找到匹配结果";
                 }
             }
+            barStaticItem1.Caption = "当前状态：正则抽取完成";
         }
         /// <summary>
         /// Xpath抽取匹配结果
@@ -922,6 +993,7 @@ namespace 射线模拟提交工具
                     richEditControl7.Text = "抽取失败";
                 }
             }
+            barStaticItem1.Caption = "当前状态：Xpath抽取完成";
         }
         #endregion
 
@@ -938,7 +1010,11 @@ namespace 射线模拟提交工具
                 barButtonItem3.Enabled = true;
             }
         }
-
+        /// <summary>
+        /// 读取配置按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void barButtonItem3_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             String newpath = String.Empty;
@@ -997,7 +1073,11 @@ namespace 射线模拟提交工具
             }
             barStaticItem1.Caption = "当前状态:读取配置完毕";
         }
-
+        /// <summary>
+        /// 保存配置按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void barButtonItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             String newpath = String.Empty;
@@ -1017,6 +1097,7 @@ namespace 射线模拟提交工具
                 }
                 Form6 form6 = new Form6();
                 form6.Text = "保存配置";
+                form6.pathname = String.IsNullOrEmpty(textEdit1.Text) ? textEdit1.Text : String.Empty;
                 form6.ShowDialog();
                 if(form6.DialogResult == DialogResult.OK)
                 {
@@ -1082,9 +1163,156 @@ namespace 射线模拟提交工具
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.Show();
-            textEdit1.Focus();
-            richEditControl1.Text = "";
+            String str = String.Empty;
+            List<String> urllist = new List<string>();
+            List<UpdateInfo> filelist = GetProject();
+            using (StreamReader sr = new StreamReader("Update_ConFig.txt"))
+            {
+                str = sr.ReadToEnd();
+            }
+            if (String.IsNullOrEmpty(str))
+            {
+                foreach (var itemhash in filelist)
+                {
+                    urllist.Add(itemhash.url + "|" + itemhash.hash);
+                }
+            }
+            else
+            {
+                urllist = GetUpdateUrl(filelist, str);
+            }
+            String canshu = String.Empty;
+            if (urllist.Count > 0)
+            {
+                for(int i = 0;i<urllist.Count;i++)
+                {
+                    canshu = canshu + "\"" + urllist[i] + "\"" + " ";
+                }
+                canshu = canshu + "\"射线模拟提交工具.exe\"";
+                Form5 form5 = new Form5("警告:检测到新版本,是否更新");
+                form5.Text = "警告";
+                form5.ShowDialog();
+                if (form5.DialogResult == DialogResult.OK)
+                {
+                    Process.Start("Update.exe", canshu);
+                    this.Close();
+                }
+                else
+                {
+                    FileVersionInfo info = FileVersionInfo.GetVersionInfo(Application.ExecutablePath);
+                    String path = Application.ExecutablePath;
+                    var arr = path.Split('\\');
+                    this.Text = $"{Path.GetFileNameWithoutExtension(path) + "    V" + info.FileVersion}";
+                    this.Show();
+
+                    textEdit1.Focus();
+                    richEditControl1.Text = "";
+                }
+            }
+            else
+            {
+                FileVersionInfo info = FileVersionInfo.GetVersionInfo(Application.ExecutablePath);
+                String path = Application.ExecutablePath;
+                var arr = path.Split('\\');
+                this.Text = $"{Path.GetFileNameWithoutExtension(path) + "    V" + info.FileVersion}";
+                this.Show();
+
+                textEdit1.Focus();
+                richEditControl1.Text = "";
+            }
+        }
+
+        private bool CheckUpdate()
+        {
+            bool flag = false;
+            return flag;
+        }
+        private void barButtonItem8_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (!String.IsNullOrEmpty(html))
+            {
+
+            }
+        }
+
+        private void ribbonControl1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// 获取服务器组件信息
+        /// </summary>
+        /// <returns></returns>
+        private List<UpdateInfo> GetProject()
+        {
+            List<UpdateInfo> filelist = new List<UpdateInfo>();
+            string json = HttpMethod.FastGetMethod("http://hydra.nb-ray.com/update/19ef948b727b37e619b38452d60b7239");
+            if (json.Contains("status\":true"))
+            {
+                JObject jobj = JsonConvert.DeserializeObject(json) as JObject;
+                if (jobj["data"]["files"] is JArray jarr)
+                {
+                    if (jarr.Count > 0)
+                    {
+                        foreach(var item in jarr)
+                        {
+                            UpdateInfo updateinfo = new UpdateInfo();
+                            updateinfo.name = Convert.ToString(item["name"].ToString());
+                            updateinfo.hash = Convert.ToString(item["hash"].ToString());
+                            updateinfo.url = Convert.ToString(item["url"].ToString());
+                            filelist.Add(updateinfo);
+                        }
+                    }
+                }
+            }
+            return filelist;
+        }
+
+        /// <summary>
+        /// 获取需要更新的组件的url
+        /// </summary>
+        /// <param name="filelist"></param>
+        private List<String> GetUpdateUrl(List<UpdateInfo> filelist,String str)
+        {
+            List<String> namelist = new List<string>();
+            ConcurrentDictionary<String, String> hashdic = new ConcurrentDictionary<string, string>();
+            List<String> urllist = new List<string>();
+            String path = Application.StartupPath;
+            str = str.Replace("\r", "");
+            var arr = str.Split('\n');
+            foreach(var item in arr)
+            {
+                if (!String.IsNullOrEmpty(item))
+                {
+                    String zj = item.Replace("----", "|");
+                    hashdic.TryAdd(zj.Split('|')[0], zj.Split('|')[1]);
+                }
+            }
+            //DirectoryInfo directoryInfo = new DirectoryInfo(path);
+            //foreach (var item in directoryInfo.GetFiles())
+            //{
+            //    if (item.Name.Substring(item.Name.Length - 3, 3) == "dll" || item.Name.Substring(item.Name.Length - 3, 3) == "exe")
+            //    {
+            //        namelist.Add(item.Name);
+            //    }
+            //}
+            foreach (var fileitem in filelist)
+            {
+                if (!hashdic.Keys.Contains(fileitem.name))
+                {
+                    urllist.Add(fileitem.url + "|" + fileitem.hash);
+                }
+                else
+                {
+                    if(hashdic[fileitem.name] != fileitem.hash)
+                    {
+                        urllist.Add(fileitem.url + "|" + fileitem.hash);
+                    }
+                }
+            }
+            //urllist.Add(path);
+            return urllist;
         }
     }
 }
